@@ -1,0 +1,38 @@
+class Payment {
+    double calculateAmount(double amount) {
+        return amount;
+    }
+
+    // Overloaded method
+    double calculateAmount(double amount, double discountPercent) {
+        return amount - (amount * discountPercent / 100.0);
+    }
+}
+
+class CardPayment extends Payment {
+    @Override
+    double calculateAmount(double amount) {
+        return amount + amount * 0.02; // 2% card fee
+    }
+}
+
+class UPIPayment extends Payment {
+    @Override
+    double calculateAmount(double amount) {
+        return amount + amount * 0.005; // 0.5% UPI fee
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Payment p1 = new CardPayment();
+        Payment p2 = new UPIPayment();
+
+        System.out.println("Card amount: " + p1.calculateAmount(1000));
+        System.out.println("UPI amount: " + p2.calculateAmount(1000));
+
+        Payment p3 = new Payment();
+        System.out.println("After discount: " +
+                           p3.calculateAmount(1000, 10));
+    }
+}

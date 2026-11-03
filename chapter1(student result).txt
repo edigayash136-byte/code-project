@@ -1,0 +1,77 @@
+class ResultSummary {
+    private String name;
+    private int total;
+    private double average;
+
+    ResultSummary(String name, int total, double average) {
+        this.name = name;
+        this.total = total;
+        this.average = average;
+    }
+
+    void display() {
+        System.out.println("Result summary for " + name);
+        System.out.println("Total = " + total);
+        System.out.println("Average = " + average);
+    }
+}
+
+class Student {
+    private String usn, name;
+    private int mark1, mark2, mark3;
+    private static int studentCount = 0;
+    public static final int MAX_MARKS = 100;
+
+    Student(String usn, String name, int m1, int m2, int m3) {
+        if (!valid(m1) || !valid(m2) || !valid(m3))
+            throw new IllegalArgumentException("Marks must be between 0 and 100");
+        this.usn = usn;
+        this.name = name;
+        mark1 = m1; mark2 = m2; mark3 = m3;
+        studentCount++;
+    }
+
+    private boolean valid(int mark) {
+        return mark >= 0 && mark <= MAX_MARKS;
+    }
+
+    public String getUsn() { return usn; }
+    public String getName() { return name; }
+    public int getMark1() { return mark1; }
+    public int getMark2() { return mark2; }
+    public int getMark3() { return mark3; }
+
+    int total() { return mark1 + mark2 + mark3; }
+    double average() { return total() / 3.0; }
+
+    void display() {
+        System.out.println("USN: " + usn + ", Name: " + name);
+    }
+
+    void display(boolean showResult) {
+        display();
+        if (showResult) {
+            System.out.println("Total: " + total());
+            System.out.println("Average: " + average());
+        }
+    }
+
+    ResultSummary getResultSummary() {
+        return new ResultSummary(name, total(), average());
+    }
+
+    static int getStudentCount() { return studentCount; }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Student s1 = new Student("1AB23CS001", "Ravi", 85, 90, 80);
+        Student s2 = new Student("1AB23CS002", "Anu", 78, 88, 92);
+
+        s1.display();
+        s1.display(true);
+        s1.getResultSummary().display();
+
+        System.out.println("Students created: " + Student.getStudentCount());
+    }
+}

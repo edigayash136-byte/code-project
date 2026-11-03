@@ -1,0 +1,112 @@
+class Person {
+    private String name;
+    private int age;
+    private static int peopleCount = 0;
+    public static final String COLLEGE_NAME = "ABC College";
+
+    Person(String name, int age) {
+        this.name = name;
+        this.age = age;
+        peopleCount++;
+    }
+
+    public String getName() { return name; }
+    public int getAge() { return age; }
+
+    void displayDetails() {
+        System.out.println("Name: " + name + ", Age: " + age);
+    }
+
+    // Overloaded method
+    void displayDetails(boolean showCollege) {
+        displayDetails();
+        if (showCollege) System.out.println("College: " + COLLEGE_NAME);
+    }
+
+    static int getPeopleCount() { return peopleCount; }
+
+    static class Department {
+        String departmentName;
+
+        Department(String departmentName) {
+            this.departmentName = departmentName;
+        }
+
+        void display() {
+            System.out.println("Department: " + departmentName);
+        }
+    }
+}
+
+class Student extends Person {
+    private String usn, course;
+
+    Student(String name, int age, String usn, String course) {
+        super(name, age);
+        this.usn = usn;
+        this.course = course;
+    }
+
+    @Override
+    void displayDetails() {
+        System.out.println("Student: " + getName() + ", Age: " + getAge());
+        System.out.println("USN: " + usn + ", Course: " + course);
+    }
+}
+
+class Faculty extends Person {
+    private String subject;
+    private double salary;
+
+    Faculty(String name, int age, String subject, double salary) {
+        super(name, age);
+        this.subject = subject;
+        this.salary = salary;
+    }
+
+    @Override
+    void displayDetails() {
+        System.out.println("Faculty: " + getName() + ", Age: " + getAge());
+        System.out.println("Subject: " + subject + ", Salary: " + salary);
+    }
+}
+
+class Administrator extends Person {
+    private String role;
+
+    Administrator(String name, int age, String role) {
+        super(name, age);
+        this.role = role;
+    }
+
+    @Override
+    void displayDetails() {
+        System.out.println("Administrator: " + getName() + ", Age: " + getAge());
+        System.out.println("Role: " + role);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Person[] people = {
+            new Student("Ravi", 20, "1AB23CS001", "CSE"),
+            new Faculty("Meera", 40, "Java", 55000),
+            new Administrator("Suresh", 45, "Office Manager")
+        };
+
+        for (Person p : people) {
+            p.displayDetails(); // run-time polymorphism
+            System.out.println();
+        }
+
+        Person.Department dept =
+            new Person.Department("Computer Science");
+        dept.display();
+
+        System.out.println("People created: " + Person.getPeopleCount());
+        System.out.println("College: " + Person.COLLEGE_NAME);
+
+        Person p = new Person("Anil", 30);
+        p.displayDetails(true); // overloaded method
+    }
+}

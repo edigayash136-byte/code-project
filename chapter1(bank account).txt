@@ -1,0 +1,51 @@
+class BankAccount {
+    private String accountNumber;
+    private double balance;
+    private static int accountCount = 0;
+    private final String accountId;
+
+    BankAccount(String accountNumber, double openingBalance) {
+        if (openingBalance < 0)
+            throw new IllegalArgumentException("Opening balance cannot be negative");
+        this.accountNumber = accountNumber;
+        this.balance = openingBalance;
+        accountCount++;
+        this.accountId = "ACC" + accountCount;
+    }
+
+    public void deposit(double amount) {
+        if (amount <= 0) {
+            System.out.println("Invalid deposit amount");
+            return;
+        }
+        balance += amount;
+    }
+
+    public void withdraw(double amount) {
+        if (amount <= 0) {
+            System.out.println("Invalid withdrawal amount");
+        } else if (amount > balance) {
+            System.out.println("Insufficient balance");
+        } else {
+            balance -= amount;
+        }
+    }
+
+    public double getBalance() { return balance; }
+    public String getAccountId() { return accountId; }
+    public static int getAccountCount() { return accountCount; }
+}
+
+public class BankTest {
+    public static void main(String[] args) {
+        BankAccount account = new BankAccount("123456789", 5000);
+        account.deposit(1500);
+        account.withdraw(2000);
+
+        System.out.println("Account ID: " + account.getAccountId());
+        System.out.println("Balance: " + account.getBalance());
+        System.out.println("Accounts created: " + BankAccount.getAccountCount());
+
+        // System.out.println(account.balance); // Compile-time error: balance is private
+    }
+}

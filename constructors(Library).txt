@@ -1,0 +1,40 @@
+class LibraryBook {
+    String title;
+    String author;
+    double price;
+
+    static int bookCount = 0;
+
+    // Constructor
+    LibraryBook(String title, String author, double price) {
+        this.title = title;
+        this.author = author;
+        this.price = price;
+
+        bookCount++;
+    }
+
+    void display() {
+        System.out.println("Book Title: " + title);
+        System.out.println("Author: " + author);
+        System.out.println("Price: Rs. " + price);
+        System.out.println("----------------");
+    }
+
+    // Static method
+    static void displayCount() {
+        System.out.println("Total Books: " + bookCount);
+    }
+
+    public static void main(String[] args) {
+        LibraryBook b1 = new LibraryBook("Java Programming", "James", 450);
+        LibraryBook b2 = new LibraryBook("Python Basics", "Guido", 350);
+        LibraryBook b3 = new LibraryBook("C Programming", "Dennis", 300);
+
+        b1.display();
+        b2.display();
+        b3.display();
+
+        LibraryBook.displayCount();
+    }
+}

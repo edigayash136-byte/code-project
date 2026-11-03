@@ -1,0 +1,58 @@
+class Complex {
+    double real, imaginary;
+
+    Complex(double real, double imaginary) {
+        this.real = real;
+        this.imaginary = imaginary;
+    }
+
+    Complex add(Complex c) {
+        return new Complex(real + c.real, imaginary + c.imaginary);
+    }
+
+    Complex multiply(Complex c) {
+        double r = real * c.real - imaginary * c.imaginary;
+        double i = real * c.imaginary + imaginary * c.real;
+        return new Complex(r, i);
+    }
+
+    int compareMagnitude(Complex c) {
+        double m1 = Math.sqrt(real * real + imaginary * imaginary);
+        double m2 = Math.sqrt(c.real * c.real + c.imaginary * c.imaginary);
+        return Double.compare(m1, m2);
+    }
+
+    Complex copy() {
+        return new Complex(real, imaginary);
+    }
+
+    void display() {
+        if (imaginary >= 0)
+            System.out.println(real + " + " + imaginary + "i");
+        else
+            System.out.println(real + " - " + (-imaginary) + "i");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Complex a = new Complex(2, 3);
+        Complex b = new Complex(4, 5);
+
+        System.out.print("A = "); a.display();
+        System.out.print("B = "); b.display();
+
+        System.out.print("Addition = "); a.add(b).display();
+        System.out.print("Multiplication = "); a.multiply(b).display();
+
+        int result = a.compareMagnitude(b);
+        if (result > 0) System.out.println("A has greater magnitude");
+        else if (result < 0) System.out.println("B has greater magnitude");
+        else System.out.println("Both have equal magnitude");
+
+        Complex copied = a.copy();
+        a.real = 100;
+        System.out.print("Modified A = "); a.display();
+        System.out.print("Copied object = "); copied.display();
+    }
+}

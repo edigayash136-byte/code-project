@@ -1,0 +1,34 @@
+class Vehicle {
+    String brand;
+
+    Vehicle(String brand) {
+        this.brand = brand;
+    }
+
+    void display() {
+        System.out.println("Vehicle brand: " + brand);
+    }
+}
+
+class Car extends Vehicle {
+    String brand;
+
+    Car(String vehicleBrand, String carBrand) {
+        super(vehicleBrand);
+        this.brand = carBrand;
+    }
+
+    @Override
+    void display() {
+        super.display();
+        System.out.println("Car brand: " + this.brand);
+        System.out.println("Parent brand using super: " + super.brand);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Car c = new Car("ParentBrand", "ChildBrand");
+        c.display();
+    }
+}
